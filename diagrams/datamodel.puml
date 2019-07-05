@@ -1,0 +1,87 @@
+@startuml
+    hide <<document>> circle
+    hide <<document>> methods
+
+    class permissions <<document>>{
+
+    }
+
+    class user <<document>> {
+        id
+    }
+
+    class visit <<document>> {
+        uid
+        fk principal_investigator
+    }
+
+    visit "0..*" -- "1" user: principal_invesitgator
+    visit "1" -- "0..*" start: visit_uid
+
+
+    visit "1" -- "1" esaf: esaf_uid
+
+
+
+    class start <<document>> {
+        uid
+        fk visit_uid
+        sample_name
+    }
+
+    class descriptor <<document>> {
+        uid
+        fk start_uid
+    }
+    start "1" -- "0..*" descriptor: start_uid
+
+    descriptor "1" -- "0..*" event: descriptor_uid
+    event "1" -- "0..*" datum : datum_uid
+    datum "0..*" -- "0..*" resource: datum_uid
+    start "1" -- "0..1" stop: start_uid
+
+    class stop <<document>> {
+        uid
+        fk start_uid
+    }
+
+    class event <<document>> {
+        uid
+        fk datum_uid
+        fk descriptor_uid
+    }
+
+
+    class datum <<document>> {
+        uid
+        fk datum_uid
+    }
+
+    class resource <<document>> {
+        uid
+    }
+
+    class proposal <<document>> {
+        uid
+        fk principal_investigator
+    }
+    proposal "1" -- "1..*" user: principal_invesitgator
+
+    class esaf <<document>> {
+        uid
+        fk proposal_uid
+        fk user_uid
+        [materials]
+    }
+    esaf "1" -- "0..*" user
+    
+
+    proposal "1" -- "0..*" esaf: proposal_uid
+
+  
+    class publication <<document>> {
+        uid
+        fk proposal_uid
+    }
+    publication "0..*" -- "1" proposal: proposal_uid
+@enduml

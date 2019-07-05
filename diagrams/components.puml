@@ -1,0 +1,22 @@
+@startuml Splash_Components
+skinparam componentStyle uml2
+
+frame "Flask"{
+    [CRUDMethod] ..> [Authenticator]: authenticate
+    [CRUDMethod] ..> [PrivilegeChecker] :check
+    [CRUDMethod] ..> [Validator]: validate
+    [Validator] ..> [JSONSchema]: validate
+    [CRUDMethod] ..> [DAO]: persist
+
+    [GlobusClient] 
+}
+[GlobusClient] ..> [GlobusAPI]
+[Databroker] --> [MongoDB]
+[NGINX] ..> [uWSGI]: dispatch
+[NGINX] ..> [StaticWeb]: serve
+[uWSGI] ..> [CRUDMethod] : dispatch
+[DAO] ..> [MongoDB] : insert
+[MongoDB] ..> [Monstache]
+[Monstache] ..> [Elasticsearch] : insert
+[NGINX] ..> [Elasticsearch]: dispatch
+@enduml

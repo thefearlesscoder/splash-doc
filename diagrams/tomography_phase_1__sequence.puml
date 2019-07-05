@@ -1,0 +1,70 @@
+@startuml
+
+actor BeamLineUser
+
+group Conduct Experiment Run
+activate ControlsSoftware
+autonumber
+    activate BeamLineUser
+        BeamLineUser -> ControlsSoftware: go()
+        BeamLineUser -> XiCAM: run_template_workflow(image_data)
+    deactivate BeamLineUser
+    group opt
+        activate XiCAM
+
+            BeamLineUser -> XiCAM: change_workflow_parameters_on_slice
+        deactivate XiCAM
+    end
+
+    BeamLineUser -> XiCAM: start_full_reconstruction()
+    activate XiCAM
+        activate Suitcase
+            XiCAM -> Suitcase: publish(message)
+            Suitcase -> Mongo: import(metadata)
+
+        deactivate Suitcase
+
+    ControlsSoftware -> NERSC: transfer(image_data)
+    activate CamLink
+            XiCAM -> CamLink: activate(job)
+            XiCAM -> Suitcase: send_metadata
+        deactivate XiCAM
+        CamLink ->  NERSC: activate_job(job)
+        activate NERSC
+            NERSC -> NERSC: run_job()
+            NERSC -> NERSC: write(reconstruction)
+        deactivate NERSC
+
+    deactivate CamLink
+
+deactivate ControlsSoftware
+end
+
+
+group opt View Reconstruction in Splash
+
+    BeamLineUser -> Splash: view_reconstruction_splash()
+    activate Splash
+        activate Intake
+            Splash -> Intake: get_run_data()
+            Intake -> Mongo: get_metadata()
+            Intake -> NERSC: get_reconstruction()
+        deactivate Intake
+
+    deactivate Splash
+end
+
+group opt View Reconstruction in XiCAM
+
+
+    activate XiCAM
+        BeamLineUser -> XiCAM: view_reconstruction_XiCAM()
+        activate Intake
+            XiCAM -> Intake: get_run_data()
+            Intake -> Mongo: get_metadata()
+            Intake -> NERSC: get_reconstruction()
+        deactivate Intake
+
+    deactivate XiCAM
+end
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+title insert_experiment_REST
+actor User
+User -> ClientApp: insert(doc)
+ClientApp -> RESTSvc: post(doc)
+RESTSvc -> API: insert_experiment(doc)
+activate API
+API -> API: choose_validator(doc)
+API -> Validator: validate_schema(schema, doc)
+API -> API: choose_injestor(doc)
+
+activate Injestor
+API -> Injestor: injest(doc)
+activate Mongo
+Injestor -> Mongo: insert(doc)
+deactivate Injestor
+deactivate API
+Mongo -> Elasticsearch: insert(doc)
+deactivate Mongo
+@enduml
+
+@startuml
+title Insert Experiment Bluesky
+
+RunEngine -> Databroker: start(doc)
+Databroker -> Mongo: insert_experiment(doc)
+Mongo -> Elasticsearch: insert(doc)
+@enduml
+

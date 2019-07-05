@@ -1,0 +1,9 @@
+@startuml Splash_Classes
+
+abstract Ingestor
+ExperimentIngestor <|- Ingestor
+
+
+abstract Validator
+JSShemaValidator <|- Validator
+@enduml
