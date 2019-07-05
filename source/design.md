@@ -47,10 +47,10 @@ Splash uses two primary storage systems. MongoDB is the principle system and the
 
 
 ## Document Data Model
-As [mentioned previously](#crudmethod), there is a mapping from resources mapped in REST to CRUD methods to document collections in Mongo. Each resource will be maintained by a JSONSchema which can be validated against. Ther schema will contain a combination of required fields and object and slots for more free-form content. Below is list of the currently-designed schemas.
+As [mentioned previously](#crudmethod), there is a mapping from resources mapped in REST to CRUD methods to document collections in Mongo. Each resource will be maintained by a JSONSchema which can be validated against. The schema will contain a combination of required fields and object and slots for more free-form content. Below is list of the currently-designed schemas.
 
 ### Experiment
-An [experiment]() is a high level concept that encompasses experimental condidition, samples, trials, users and results. 
+An [experiment](https://github.com/als-computing/splash-server/blob/master/schema/experiment_schema.json) is a high level concept that encompasses experimental condidition, samples, trials, users and results. 
 
 ## Web Site
 The [web site](#staticweb) is an Single Page App with very minimal HTML defined on the server. It is built principally making RESTful requests to to populate Vue View componenents. Axios handles those RESTful requests.

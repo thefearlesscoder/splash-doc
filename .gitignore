@@ -45,8 +45,8 @@ venv/
 #pip egg info
 *.egg-info
 
-#webpack dist folder
-dist/
+#doc build
+build/
 
 #mac .DS_Store
 .DS_Store
