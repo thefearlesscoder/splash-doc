@@ -19,11 +19,11 @@ Mongo -> Elasticsearch: insert(doc)
 deactivate Mongo
 @enduml
 
-@startuml
-title Insert Experiment Bluesky
+' @startuml
+' title Insert Experiment Bluesky
 
-RunEngine -> Databroker: start(doc)
-Databroker -> Mongo: insert_experiment(doc)
-Mongo -> Elasticsearch: insert(doc)
-@enduml
+' RunEngine -> Databroker: start(doc)
+' Databroker -> Mongo: insert_experiment(doc)
+' Mongo -> Elasticsearch: insert(doc)
+' @enduml
 

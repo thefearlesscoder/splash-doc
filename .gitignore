@@ -77,5 +77,3 @@ build/
 .vscode/
 
 __pycache__/
-
-out/
