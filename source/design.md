@@ -56,4 +56,7 @@ An [experiment](https://github.com/als-computing/splash-server/blob/master/schem
 The [web site](#staticweb) is an Single Page App with very minimal HTML defined on the server. It is built principally making RESTful requests to to populate Vue View componenents. Axios handles those RESTful requests.
 
 ### Search
-Searching is performed by making requests to Elasticsearch. Search results from Elasticsearch are displayed to the user with links that result in requestst to Mongo. c
+Searching is performed by making requests to Elasticsearch. Search results from Elasticsearch are displayed to the user with links that result in requestst to Mongo.
+
+#Sequences
+See [Splash Sequences](sequences.md)

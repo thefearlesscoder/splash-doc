@@ -11,7 +11,7 @@ frame "Flask"{
     [GlobusClient] 
 }
 [GlobusClient] ..> [GlobusAPI]
-[Databroker] --> [MongoDB]
+[Databroker] --> [NGINX]
 [NGINX] ..> [uWSGI]: dispatch
 [NGINX] ..> [StaticWeb]: serve
 [uWSGI] ..> [CRUDMethod] : dispatch
@@ -19,4 +19,16 @@ frame "Flask"{
 [MongoDB] ..> [Monstache]
 [Monstache] ..> [Elasticsearch] : insert
 [NGINX] ..> [Elasticsearch]: dispatch
+
+@enduml
+
+@startuml sample_deployment
+skinparam componentStyle uml2
+
+[Beamline] ..> [Databroker]
+[Databroker] ..> [RESTBroker]
+[RESTBroker] ..> [Splash]
+[UserHub] ..> [Splash]
+[User] ..> [Splash]
+
 @enduml

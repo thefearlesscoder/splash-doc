@@ -8,5 +8,5 @@ Splash Design Document
 
    introduction
    design
-   sequences
+   installation
    
