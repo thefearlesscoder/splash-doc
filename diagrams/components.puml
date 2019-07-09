@@ -5,9 +5,10 @@ frame "Flask"{
     [CRUDMethod] ..> [Authenticator]: authenticate
     [CRUDMethod] ..> [PrivilegeChecker] :check
     [CRUDMethod] ..> [Validator]: validate
+    [CRUDMethod] ..> [Mapper]: map data
     [Validator] ..> [JSONSchema]: validate
     [CRUDMethod] ..> [DAO]: persist
-
+    
     [GlobusClient] 
 }
 [GlobusClient] ..> [GlobusAPI]
