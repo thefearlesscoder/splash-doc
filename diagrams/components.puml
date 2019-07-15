@@ -13,6 +13,7 @@ frame "Flask"{
 }
 [GlobusClient] ..> [GlobusAPI]
 [Databroker] --> [NGINX]
+[RESTfulClient] --> [NGINX]
 [NGINX] ..> [uWSGI]: dispatch
 [NGINX] ..> [StaticWeb]: serve
 [uWSGI] ..> [CRUDMethod] : dispatch
