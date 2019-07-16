@@ -16,3 +16,11 @@ This component will access the `search` URL query parameter and send a `match` q
 
 This component then displays the results and paginates them using the `page` parameter in the URL query. A maximum of 10 results are displayed per page. The component sends a request to ElasticSearch with the `from` parameter which specifies the starting result ElasticSearch displays. By default ElasticSearch only displays 10 results per query.
 
+
+# Testing
+The testing framework that we use is Jest plugin for Vue found here https://www.npmjs.com/package/@vue/cli-plugin-unit-jest. To run the tests execute `npm run test:unit`. You may find documentation on how to write the tests here, https://vue-test-utils.vuejs.org/. 
+
+All of the tests may be found in the `tests` directory. Each testing file should test _one_ single file component. Though not necessary, in order to make it easier to match tests with their respective code, the tests directory structure should mirror that of the `src` directory. same folder as that of the component it is testing. The tests are named according to this schema {SingleFileComponentName}.spec.js For example if one were writing a test `Foo.vue` the corresponding name should be `Foo.spec.js`
+
+For testing async behavior this page https://vue-test-utils.vuejs.org/guides/testing-async-components.html explains it quite well. Preferably use the `await flushPromises()` function rather than the `$nextTick()` to avoid nesting callbacks. `await flushPromises()` will wait for all Promises to resolve whereas `$nextTick()` will only wait for the top level promises to resolve and not any of its nested promises potentially creating problems.
+
