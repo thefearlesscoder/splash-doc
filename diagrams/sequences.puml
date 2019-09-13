@@ -19,3 +19,32 @@ Mongo -> Elasticsearch: insert(doc)
 deactivate Mongo
 @enduml
 
+
+
+@startuml
+title user login google
+actor User 
+
+User -> BrowserRouter: access_secured_view()
+BrowserRouter -> BrowserRouter: redirct_to_loginview()
+User -> LoginView: click_google_button()
+activate GooglePopup
+activate LoginView
+LoginView -> GooglePopup: launch()
+GooglePopup -> Google: generate_token()
+deactivate GooglePopup
+activate VuexStore
+
+LoginView -> VuexStore: store_token(token)
+activate SplashServer
+
+VuexStore -> SplashServer: send_token(token)
+SplashServer -> SplashServer: validate_token_signature(token)
+SplashServer -> SplashServer: validate_token_issuer(token)
+SplashServer -> SplashServer: extract_user_id(token)
+SplashServer -> Session: add_username(username)
+SplashServer -> VuexStore: reply_ok()
+deactivate SplashServer
+deactivate VuexStore
+deactivate LoginView
+@enduml
